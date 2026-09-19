@@ -1,6 +1,551 @@
 
 <!DOCTYPE html>
+<html lang="en"><!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sari-Smart</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7f9;
+      color: #222;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      color: #666;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .welcome,
+    .panel,
+    .smart-card,
+    .result-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .welcome h2,
+    .panel h2 {
+      margin-top: 0;
+    }
+
+    .balance {
+      display: inline-block;
+      background: #f0f4ff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px 15px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .card:hover,
+    .smart-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .icon {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .smart {
+      margin-top: 25px;
+    }
+
+    .smart-card {
+      cursor: pointer;
+    }
+
+    .smart-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 17px;
+    }
+
+    .smart-card span {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .back {
+      background: #eeeeee;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .primary {
+      background: #222;
+      color: white;
+      padding: 13px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .secondary {
+      background: #eeeeee;
+      padding: 13px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .result {
+      background: #f7f7f7;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .result-row:last-child {
+      border-bottom: none;
+    }
+
+    .notice {
+      background: #fff8df;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #888;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌱 Sari-Smart</h1>
+  <p>Your simple smart business assistant</p>
+</header>
+
+<main class="container">
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="screen active">
+
+    <div class="welcome">
+      <h2>Welcome to Sari-Smart</h2>
+      <p>Let's make running your business easier.</p>
+
+      <div class="balance">
+        🤖 Smart Features Balance: ₱50.00
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <button class="card">
+        <span class="icon">🏪</span>
+        My Store
+      </button>
+
+      <button class="card">
+        <span class="icon">📦</span>
+        Inventory
+      </button>
+
+      <button class="card">
+        <span class="icon">🧾</span>
+        Sales
+      </button>
+
+      <button class="card">
+        <span class="icon">👥</span>
+        Customers
+      </button>
+
+      <button class="card">
+        <span class="icon">💰</span>
+        5/6 Loans
+      </button>
+
+      <button class="card">
+        <span class="icon">📅</span>
+        Payments
+      </button>
+
+    </div>
+
+    <section class="smart">
+
+      <h2>🤖 Smart Features</h2>
+
+      <div class="smart-card" onclick="showScreen('notebook')">
+        <strong>📖 Read My Notebook</strong>
+        <span>Turn handwritten records into digital records.</span>
+      </div>
+
+      <div class="smart-card" onclick="showScreen('inventoryScan')">
+        <strong>📷 Scan My Inventory</strong>
+        <span>Take a picture and let Sari-Smart help enter your products.</span>
+      </div>
+
+      <div class="smart-card" onclick="showScreen('voice')">
+        <strong>🎤 Tell My Store</strong>
+        <span>Speak your inventory, sales, or other information.</span>
+      </div>
+
+    </section>
+
+  </section>
+
+
+  <!-- NOTEBOOK -->
+  <section id="notebook" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">
+      ← Back to Dashboard
+    </button>
+
+    <div class="panel">
+
+      <h2>📖 Read My Notebook</h2>
+
+      <p>
+        Take a clear picture of a notebook page.
+        Sari-Smart will help turn it into digital records.
+      </p>
+
+      <input type="file" accept="image/*">
+
+      <div class="notice">
+        ⚠️ AI results must always be checked before financial records are saved.
+      </div>
+
+      <button class="primary" onclick="showNotebookResult()">
+        Read This Page
+      </button>
+
+      <div id="notebookResult"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- INVENTORY SCAN -->
+  <section id="inventoryScan" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">
+      ← Back to Dashboard
+    </button>
+
+    <div class="panel">
+
+      <h2>📷 Scan My Inventory</h2>
+
+      <p>
+        Take a picture of your shelves, products, boxes,
+        or handwritten inventory list.
+      </p>
+
+      <input type="file" accept="image/*" multiple>
+
+      <div class="notice">
+        Sari-Smart will identify what it can and ask you to confirm the results.
+      </div>
+
+      <button class="primary" onclick="showInventoryResult()">
+        Scan Inventory
+      </button>
+
+      <div id="inventoryResult"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- VOICE -->
+  <section id="voice" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">
+      ← Back to Dashboard
+    </button>
+
+    <div class="panel">
+
+      <h2>🎤 Tell My Store</h2>
+
+      <p>
+        Tell Sari-Smart what you want to record.
+      </p>
+
+      <textarea
+        id="voiceText"
+        rows="4"
+        placeholder="Example: I received 24 Coke bottles today and I sell them for 25 pesos each."
+      ></textarea>
+
+      <button class="primary" onclick="processVoice()">
+        Understand This
+      </button>
+
+      <div id="voiceResult"></div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  Sari-Smart — Making business simpler, one step at a time.
+</footer>
+
+
+<script>
+
+  function showScreen(screenId) {
+
+    const screens = document.querySelectorAll(".screen");
+
+    screens.forEach(screen => {
+      screen.classList.remove("active");
+    });
+
+    document.getElementById(screenId).classList.add("active");
+
+    window.scrollTo(0, 0);
+  }
+
+
+  function showNotebookResult() {
+
+    document.getElementById("notebookResult").innerHTML = `
+
+      <div class="result-card">
+
+        <h3>🔎 Example Results</h3>
+
+        <div class="result">
+
+          <div class="result-row">
+            <strong>Customer</strong>
+            <span>Maria</span>
+          </div>
+
+          <div class="result-row">
+            <strong>Original Loan</strong>
+            <span>₱1,000</span>
+          </div>
+
+          <div class="result-row">
+            <strong>Total Repayment</strong>
+            <span>₱1,200</span>
+          </div>
+
+          <div class="result-row">
+            <strong>Amount Paid</strong>
+            <span>₱400</span>
+          </div>
+
+          <div class="result-row">
+            <strong>Balance</strong>
+            <span>₱800</span>
+          </div>
+
+        </div>
+
+        <p>Is this information correct?</p>
+
+        <button class="primary" onclick="alert('Record confirmed! Real saving will be connected later.')">
+          ✓ Confirm & Save
+        </button>
+
+        <button class="secondary">
+          ✏️ Make Changes
+        </button>
+
+      </div>
+
+    `;
+  }
+
+
+  function showInventoryResult() {
+
+    document.getElementById("inventoryResult").innerHTML = `
+
+      <div class="result-card">
+
+        <h3>🔎 Example Inventory Results</h3>
+
+        <div class="result">
+
+          <div class="result-row">
+            <strong>Coke</strong>
+            <span>24 — ₱25</span>
+          </div>
+
+          <div class="result-row">
+            <strong>Pepsi</strong>
+            <span>18 — ₱25</span>
+          </div>
+
+          <div class="result-row">
+            <strong>Lucky Me</strong>
+            <span>30 — ₱15</span>
+          </div>
+
+          <div class="result-row">
+            <strong>Sardines</strong>
+            <span>12 — ₱28</span>
+          </div>
+
+        </div>
+
+        <p>Check the information before saving.</p>
+
+        <button class="primary" onclick="alert('Inventory confirmed! Real saving will be connected later.')">
+          ✓ Confirm & Save
+        </button>
+
+        <button class="secondary">
+          ✏️ Make Changes
+        </button>
+
+      </div>
+
+    `;
+  }
+
+
+  function processVoice() {
+
+    const text = document.getElementById("voiceText").value;
+
+    if (text.trim() === "") {
+
+      alert("Please tell Sari-Smart what you want to record.");
+
+      return;
+    }
+
+    document.getElementById("voiceResult").innerHTML = `
+
+      <div class="result-card">
+
+        <h3>🔎 Information Found</h3>
+
+        <div class="result">
+
+          <div class="result-row">
+            <strong>Spoken information</strong>
+            <span>${escapeHTML(text)}</span>
+          </div>
+
+        </div>
+
+        <div class="notice">
+          This is currently a test mode.
+          The real AI will convert spoken information into structured records.
+        </div>
+
+        <button class="primary" onclick="alert('Information confirmed! Real AI processing will be connected later.')">
+          ✓ Confirm & Save
+        </button>
+
+      </div>
+
+    `;
+  }
+
+
+  function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+  }
+
+</script>
+
+</body>
+</html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
