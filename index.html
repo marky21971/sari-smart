@@ -1,7 +1,2099 @@
 
 <!DOCTYPE html>
 <html lang="en"><!DOCTYPE html>
-<html lang="en"><!DOCTYPE html>
+<html lang="en"><!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f6f5b">
+<title>Sari-Smart</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7f6;
+    color: #26332f;
+}
+
+header {
+    background: #1f6f5b;
+    color: white;
+    padding: 18px 16px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header p {
+    margin: 5px 0 0;
+    opacity: .9;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 18px;
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.07);
+}
+
+.card h2,
+.card h3 {
+    margin-top: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.stat {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
+
+.stat .label {
+    font-size: 13px;
+    color: #66736f;
+}
+
+.stat .value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 7px;
+    color: #1f6f5b;
+}
+
+button {
+    border: none;
+    border-radius: 11px;
+    padding: 12px 15px;
+    background: #1f6f5b;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    margin: 4px;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+button.secondary {
+    background: #60706b;
+}
+
+button.light {
+    background: #e8f0ed;
+    color: #1f6f5b;
+}
+
+button.danger {
+    background: #b83b3b;
+}
+
+button.warning {
+    background: #c98b20;
+}
+
+button.big {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd6d2;
+    border-radius: 10px;
+    margin: 6px 0 12px;
+    font-size: 15px;
+    background: white;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+    gap: 10px;
+}
+
+.nav-grid button {
+    min-height: 65px;
+    margin: 0;
+}
+
+.smart {
+    border: 2px solid #d5a72c;
+    background: #fffdf4;
+}
+
+.smart h2 {
+    color: #9b7513;
+}
+
+.feature-button {
+    background: #ffffff;
+    color: #26332f;
+    border: 1px solid #d7dfdc;
+    text-align: left;
+    min-height: 85px;
+}
+
+.feature-button strong {
+    display: block;
+    color: #1f6f5b;
+    margin-bottom: 5px;
+}
+
+.balance-pill {
+    display: inline-block;
+    background: #fff;
+    color: #1f6f5b;
+    border-radius: 20px;
+    padding: 7px 12px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    padding: 10px;
+    border-bottom: 1px solid #e4e9e7;
+    text-align: left;
+    font-size: 14px;
+}
+
+th {
+    background: #edf3f0;
+}
+
+.empty {
+    text-align: center;
+    padding: 25px;
+    color: #77827f;
+}
+
+.notice {
+    padding: 12px;
+    border-radius: 10px;
+    background: #edf5f2;
+    margin-bottom: 12px;
+}
+
+.warning-box {
+    background: #fff4d7;
+    border-left: 5px solid #d39b23;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+}
+
+.success {
+    background: #e4f4ea;
+    color: #28633e;
+}
+
+.preview-img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #eef2f0;
+    margin: 10px 0;
+}
+
+.camera-box {
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed #aebdb7;
+    border-radius: 14px;
+    background: #fafcfb;
+}
+
+#cameraVideo {
+    width: 100%;
+    max-height: 400px;
+    border-radius: 12px;
+    background: black;
+}
+
+#cameraCanvas {
+    display: none;
+}
+
+.voice-status {
+    text-align: center;
+    padding: 18px;
+    font-size: 18px;
+    border-radius: 12px;
+    background: #edf5f2;
+    margin: 12px 0;
+}
+
+.footer {
+    text-align: center;
+    color: #77827f;
+    font-size: 12px;
+    padding: 30px 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.small {
+    font-size: 12px;
+    color: #6d7774;
+}
+
+.amount {
+    font-weight: bold;
+    color: #1f6f5b;
+}
+
+.loan-balance {
+    color: #a33b3b;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 24px;
+    }
+
+    .container {
+        padding: 12px;
+    }
+
+    .stat .value {
+        font-size: 20px;
+    }
+
+    button {
+        width: auto;
+    }
+
+    .nav-grid button {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌿 Sari-Smart</h1>
+    <p>Less cash. Less paperwork. Less worry. More time.</p>
+    <div class="balance-pill">
+        Smart Features Balance: ₱<span id="smartBalance">50.00</span>
+    </div>
+</header>
+
+<div class="container">
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="screen active">
+
+    <div class="card">
+        <h2>🏠 My Dashboard</h2>
+        <p>Welcome to Sari-Smart. Your business information is saved on this device.</p>
+    </div>
+
+    <div class="grid">
+
+        <div class="stat">
+            <div class="label">Today's Sales</div>
+            <div class="value">₱<span id="todaySales">0.00</span></div>
+        </div>
+
+        <div class="stat">
+            <div class="label">Cash Sales</div>
+            <div class="value">₱<span id="todayCash">0.00</span></div>
+        </div>
+
+        <div class="stat">
+            <div class="label">Digital Sales</div>
+            <div class="value">₱<span id="todayDigital">0.00</span></div>
+        </div>
+
+        <div class="stat">
+            <div class="label">Inventory Value</div>
+            <div class="value">₱<span id="inventoryValue">0.00</span></div>
+        </div>
+
+        <div class="stat">
+            <div class="label">5/6 Outstanding</div>
+            <div class="value">₱<span id="loanOutstanding">0.00</span></div>
+        </div>
+
+        <div class="stat">
+            <div class="label">Cash on Hand</div>
+            <div class="value">₱<span id="cashOnHand">0.00</span></div>
+        </div>
+
+        <div class="stat">
+            <div class="label">Digital Money</div>
+            <div class="value">₱<span id="digitalMoney">0.00</span></div>
+        </div>
+
+        <div class="stat">
+            <div class="label">Customers</div>
+            <div class="value"><span id="customerCount">0</span></div>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <h3>📍 Business</h3>
+        <div class="nav-grid">
+            <button onclick="showScreen('store')">🏪 My Store</button>
+            <button onclick="showScreen('inventory')">📦 Inventory</button>
+            <button onclick="showScreen('sales')">🧾 Sales</button>
+            <button onclick="showScreen('customers')">👥 Customers</button>
+            <button onclick="showScreen('loans')">💰 5/6 Loans</button>
+            <button onclick="showScreen('payments')">💳 Payments</button>
+        </div>
+    </div>
+
+    <div class="card smart">
+        <h2>✨ Smart Features</h2>
+
+        <div class="nav-grid">
+            <button class="feature-button" onclick="showScreen('notebook')">
+                📖
+                <strong>Read My Notebook</strong>
+                Take a photo of your handwritten records.
+            </button>
+
+            <button class="feature-button" onclick="showScreen('inventoryScan')">
+                📷
+                <strong>Scan My Inventory</strong>
+                Photograph your products or inventory list.
+            </button>
+
+            <button class="feature-button" onclick="showScreen('voice')">
+                🎤
+                <strong>Tell My Store</strong>
+                Speak instead of typing.
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>💵 Money Center</h3>
+        <p class="small">
+            Keep track of money without needing to carry unnecessary cash.
+            Actual GCash and bank connections will be added through secure authorized integrations.
+        </p>
+
+        <div class="nav-grid">
+            <button onclick="showScreen('money')">💰 Money Center</button>
+            <button onclick="showScreen('smartBalance')">✨ Smart Balance</button>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- STORE -->
+<section id="store" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>🏪 My Store</h2>
+        <p>Quick overview of your sari-sari store.</p>
+    </div>
+
+    <div class="card">
+        <h3>Store Summary</h3>
+
+        <div class="grid">
+            <div class="stat">
+                <div class="label">Products</div>
+                <div class="value" id="storeProducts">0</div>
+            </div>
+
+            <div class="stat">
+                <div class="label">Today's Sales</div>
+                <div class="value">₱<span id="storeSales">0.00</span></div>
+            </div>
+
+            <div class="stat">
+                <div class="label">Low Stock</div>
+                <div class="value" id="lowStock">0</div>
+            </div>
+
+            <div class="stat">
+                <div class="label">Customers</div>
+                <div class="value" id="storeCustomers">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Quick Actions</h3>
+        <button onclick="showScreen('inventory')">📦 Manage Inventory</button>
+        <button onclick="showScreen('sales')">🧾 Record Sale</button>
+        <button onclick="showScreen('customers')">👥 Add Customer</button>
+    </div>
+
+</section>
+
+
+<!-- INVENTORY -->
+<section id="inventory" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>📦 Inventory</h2>
+
+        <label>Product Name</label>
+        <input id="productName" placeholder="Example: Coca-Cola 1.5L">
+
+        <label>Quantity</label>
+        <input id="productQty" type="number" min="0" placeholder="Example: 24">
+
+        <label>Selling Price</label>
+        <input id="productPrice" type="number" min="0" step="0.01" placeholder="Example: 75">
+
+        <label>Low Stock Alert At</label>
+        <input id="productLow" type="number" min="0" value="5">
+
+        <button onclick="addProduct()">➕ Add Product</button>
+    </div>
+
+    <div class="card">
+        <h3>Current Inventory</h3>
+        <div id="inventoryList"></div>
+    </div>
+
+</section>
+
+
+<!-- SALES -->
+<section id="sales" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>🧾 Record Sale</h2>
+
+        <label>Product</label>
+        <select id="saleProduct"></select>
+
+        <label>Quantity Sold</label>
+        <input id="saleQty" type="number" min="1" value="1">
+
+        <label>Payment Method</label>
+        <select id="salePayment">
+            <option value="cash">Cash</option>
+            <option value="digital">Digital / GCash</option>
+        </select>
+
+        <button onclick="recordSale()">💰 Record Sale</button>
+    </div>
+
+    <div class="card">
+        <h3>Sales History</h3>
+        <div id="salesList"></div>
+    </div>
+
+</section>
+
+
+<!-- CUSTOMERS -->
+<section id="customers" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>👥 Customers</h2>
+
+        <label>Customer Name</label>
+        <input id="customerName" placeholder="Customer name">
+
+        <label>Phone / Note</label>
+        <input id="customerNote" placeholder="Optional">
+
+        <button onclick="addCustomer()">➕ Add Customer</button>
+    </div>
+
+    <div class="card">
+        <h3>Customer List</h3>
+        <div id="customerList"></div>
+    </div>
+
+</section>
+
+
+<!-- LOANS -->
+<section id="loans" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>💰 5/6 Lending</h2>
+
+        <label>Borrower</label>
+        <input id="loanCustomer" placeholder="Borrower's name">
+
+        <label>Original Loan Amount</label>
+        <input id="loanOriginal" type="number" min="0" step="0.01">
+
+        <label>Total Repayment Amount</label>
+        <input id="loanTotal" type="number" min="0" step="0.01">
+
+        <button onclick="addLoan()">➕ Create Loan</button>
+    </div>
+
+    <div class="card">
+        <h3>Active Loans</h3>
+        <div id="loanList"></div>
+    </div>
+
+</section>
+
+
+<!-- PAYMENTS -->
+<section id="payments" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>💳 Loan Payments</h2>
+
+        <label>Loan</label>
+        <select id="paymentLoan"></select>
+
+        <label>Amount Paid</label>
+        <input id="loanPaymentAmount" type="number" min="0" step="0.01">
+
+        <label>Payment Method</label>
+        <select id="loanPaymentMethod">
+            <option value="cash">Cash</option>
+            <option value="digital">Digital / GCash</option>
+        </select>
+
+        <button onclick="recordLoanPayment()">💵 Record Payment</button>
+    </div>
+
+    <div class="card">
+        <h3>Payment History</h3>
+        <div id="paymentList"></div>
+    </div>
+
+</section>
+
+
+<!-- MONEY CENTER -->
+<section id="money" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>💰 Money Center</h2>
+
+        <div class="warning-box">
+            <strong>Important:</strong> Sari-Smart will never ask you to place your
+            GCash MPIN, bank password, or OTP into this app.
+            Real account connections will use secure authorized services.
+        </div>
+
+        <label>Starting Cash on Hand</label>
+        <input id="startingCash" type="number" min="0" step="0.01">
+
+        <label>Starting Digital Money</label>
+        <input id="startingDigital" type="number" min="0" step="0.01">
+
+        <button onclick="saveMoneySettings()">💾 Save Money Settings</button>
+
+        <div class="grid" style="margin-top:15px;">
+            <div class="stat">
+                <div class="label">Cash on Hand</div>
+                <div class="value">₱<span id="moneyCash">0.00</span></div>
+            </div>
+
+            <div class="stat">
+                <div class="label">Digital Money</div>
+                <div class="value">₱<span id="moneyDigital">0.00</span></div>
+            </div>
+
+            <div class="stat">
+                <div class="label">Money Available</div>
+                <div class="value">₱<span id="moneyAvailable">0.00</span></div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- SMART BALANCE -->
+<section id="smartBalance" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>✨ Smart Features Balance</h2>
+
+        <div class="stat">
+            <div class="label">Current Balance</div>
+            <div class="value">₱<span id="smartBalanceLarge">50.00</span></div>
+        </div>
+
+        <h3>Add Smart Features Credit</h3>
+
+        <button onclick="addSmartCredit(50)">+ ₱50</button>
+        <button onclick="addSmartCredit(100)">+ ₱100</button>
+        <button onclick="addSmartCredit(200)">+ ₱200</button>
+
+        <p class="small">
+            During the trial, Smart Features can operate in test mode.
+            Later, actual AI usage can deduct from this balance.
+        </p>
+
+        <h3>Usage History</h3>
+        <div id="smartUsageList"></div>
+    </div>
+
+</section>
+
+
+<!-- NOTEBOOK -->
+<section id="notebook" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>📖 Read My Notebook</h2>
+
+        <div class="warning-box">
+            <strong>Review before saving.</strong>
+            A photograph is never automatically allowed to change your financial records.
+        </div>
+
+        <div class="camera-box">
+
+            <input
+                id="notebookFile"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onchange="previewNotebook(event)"
+            >
+
+            <img id="notebookPreview" class="preview-img hidden">
+
+        </div>
+
+        <div id="notebookReview" class="hidden">
+
+            <h3>✏️ Review Information</h3>
+
+            <label>Customer Name</label>
+            <input id="notebookCustomer">
+
+            <label>Original Loan</label>
+            <input id="notebookOriginal" type="number" step="0.01">
+
+            <label>Total Repayment</label>
+            <input id="notebookTotal" type="number" step="0.01">
+
+            <label>Amount Already Paid</label>
+            <input id="notebookPaid" type="number" step="0.01">
+
+            <label>Remaining Balance</label>
+            <input id="notebookBalance" type="number" step="0.01">
+
+            <button onclick="saveNotebookRecord()">✅ Confirm & Save</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INVENTORY SCAN -->
+<section id="inventoryScan" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>📷 Scan My Inventory</h2>
+
+        <div class="warning-box">
+            <strong>Review before saving.</strong>
+            The final AI version will identify products, quantities and prices.
+        </div>
+
+        <div class="camera-box">
+
+            <input
+                id="inventoryFile"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onchange="previewInventory(event)"
+            >
+
+            <img id="inventoryPreview" class="preview-img hidden">
+
+        </div>
+
+        <div id="inventoryReview" class="hidden">
+
+            <h3>✏️ Review Product</h3>
+
+            <label>Product Name</label>
+            <input id="scanProductName">
+
+            <label>Quantity</label>
+            <input id="scanProductQty" type="number" min="0">
+
+            <label>Selling Price</label>
+            <input id="scanProductPrice" type="number" min="0" step="0.01">
+
+            <button onclick="saveScannedProduct()">✅ Confirm & Save</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- VOICE -->
+<section id="voice" class="screen">
+
+    <div class="card">
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+        <h2>🎤 Tell My Store</h2>
+
+        <div class="notice">
+            Say something like:
+            <br><br>
+            <strong>
+            "I received 24 Coke bottles and I sell them for 25 pesos each."
+            </strong>
+        </div>
+
+        <button class="big" onclick="startVoice()">🎤 Start Talking</button>
+
+        <div id="voiceStatus" class="voice-status">
+            Ready to listen.
+        </div>
+
+        <label>What Sari-Smart Heard</label>
+        <textarea id="voiceText" rows="5"></textarea>
+
+        <button onclick="processVoiceText()">🔎 Prepare Information</button>
+
+        <div id="voiceReview" class="hidden">
+
+            <h3>✏️ Review Before Saving</h3>
+
+            <label>Product Name</label>
+            <input id="voiceProductName">
+
+            <label>Quantity</label>
+            <input id="voiceProductQty" type="number" min="0">
+
+            <label>Selling Price</label>
+            <input id="voiceProductPrice" type="number" min="0" step="0.01">
+
+            <button onclick="saveVoiceProduct()">✅ Confirm & Save</button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CAMERA -->
+<section id="camera" class="screen">
+
+    <div class="card">
+
+        <button onclick="showScreen('dashboard')">← Dashboard</button>
+
+        <h2>📷 Camera</h2>
+
+        <video id="cameraVideo" autoplay playsinline></video>
+
+        <canvas id="cameraCanvas"></canvas>
+
+        <button onclick="startCamera()">📷 Open Camera</button>
+        <button onclick="takePhoto()">📸 Take Photo</button>
+        <button class="secondary" onclick="stopCamera()">Stop Camera</button>
+
+        <img id="cameraPhoto" class="preview-img hidden">
+
+    </div>
+
+</section>
+
+
+<div class="footer">
+    Sari-Smart • Built to make small business simpler.
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SARI-SMART MASTER DATA
+========================================================= */
+
+const STORAGE_KEY = "sariSmartData";
+
+let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+
+    products: [],
+    sales: [],
+    customers: [],
+    loans: [],
+    payments: [],
+
+    money: {
+        startingCash: 0,
+        startingDigital: 0
+    },
+
+    smart: {
+        balance: 50,
+        usage: []
+    }
+
+};
+
+function saveData() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    refreshAll();
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+function peso(number) {
+    return Number(number || 0).toLocaleString("en-PH", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+function today() {
+    return new Date().toISOString().slice(0,10);
+}
+
+function showScreen(id) {
+
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    const screen = document.getElementById(id);
+
+    if (screen) {
+        screen.classList.add("active");
+        window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    refreshAll();
+}
+
+
+/* =========================================================
+   INVENTORY
+========================================================= */
+
+function addProduct() {
+
+    const name = document.getElementById("productName").value.trim();
+    const qty = Number(document.getElementById("productQty").value);
+    const price = Number(document.getElementById("productPrice").value);
+    const low = Number(document.getElementById("productLow").value);
+
+    if (!name) {
+        alert("Please enter a product name.");
+        return;
+    }
+
+    if (qty < 0 || price < 0) {
+        alert("Please enter valid numbers.");
+        return;
+    }
+
+    data.products.push({
+        id: Date.now(),
+        name,
+        qty,
+        price,
+        low,
+        created: new Date().toISOString()
+    });
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productQty").value = "";
+    document.getElementById("productPrice").value = "";
+
+    saveData();
+
+    alert("Product added to inventory.");
+}
+
+function deleteProduct(id) {
+
+    if (!confirm("Delete this product from inventory?")) return;
+
+    data.products = data.products.filter(p => p.id !== id);
+
+    saveData();
+}
+
+function changeQuantity(id, amount) {
+
+    const product = data.products.find(p => p.id === id);
+
+    if (!product) return;
+
+    product.qty = Math.max(0, product.qty + amount);
+
+    saveData();
+}
+
+function renderInventory() {
+
+    const box = document.getElementById("inventoryList");
+
+    if (!data.products.length) {
+        box.innerHTML = `<div class="empty">No products yet.</div>`;
+        return;
+    }
+
+    box.innerHTML = `
+        <div class="table-wrap">
+        <table>
+        <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Value</th>
+            <th>Actions</th>
+        </tr>
+
+        ${data.products.map(p => `
+            <tr>
+                <td>
+                    <strong>${escapeHtml(p.name)}</strong>
+                    ${p.qty <= p.low
+                        ? `<div class="small" style="color:#b83b3b;">⚠ Low stock</div>`
+                        : ""}
+                </td>
+
+                <td>${p.qty}</td>
+
+                <td>₱${peso(p.price)}</td>
+
+                <td>₱${peso(p.qty * p.price)}</td>
+
+                <td>
+                    <button class="light" onclick="changeQuantity(${p.id},1)">+</button>
+                    <button class="light" onclick="changeQuantity(${p.id},-1)">−</button>
+                    <button class="danger" onclick="deleteProduct(${p.id})">Delete</button>
+                </td>
+            </tr>
+        `).join("")}
+
+        </table>
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   SALES
+========================================================= */
+
+function refreshSaleProducts() {
+
+    const select = document.getElementById("saleProduct");
+
+    if (!data.products.length) {
+
+        select.innerHTML =
+            `<option value="">No products available</option>`;
+
+        return;
+    }
+
+    select.innerHTML = data.products.map(p => `
+        <option value="${p.id}">
+            ${escapeHtml(p.name)} — ${p.qty} available — ₱${peso(p.price)}
+        </option>
+    `).join("");
+}
+
+function recordSale() {
+
+    const productId = Number(document.getElementById("saleProduct").value);
+    const qty = Number(document.getElementById("saleQty").value);
+    const method = document.getElementById("salePayment").value;
+
+    const product = data.products.find(p => p.id === productId);
+
+    if (!product) {
+        alert("Please select a product.");
+        return;
+    }
+
+    if (qty <= 0) {
+        alert("Enter a valid quantity.");
+        return;
+    }
+
+    if (qty > product.qty) {
+        alert("Not enough inventory.");
+        return;
+    }
+
+    const total = qty * product.price;
+
+    product.qty -= qty;
+
+    data.sales.push({
+        id: Date.now(),
+        productId,
+        productName: product.name,
+        qty,
+        price: product.price,
+        total,
+        method,
+        date: new Date().toISOString()
+    });
+
+    saveData();
+
+    alert(`Sale recorded: ₱${peso(total)}`);
+}
+
+function renderSales() {
+
+    const box = document.getElementById("salesList");
+
+    if (!data.sales.length) {
+        box.innerHTML = `<div class="empty">No sales recorded yet.</div>`;
+        return;
+    }
+
+    const sales = [...data.sales].reverse();
+
+    box.innerHTML = `
+        <div class="table-wrap">
+        <table>
+        <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Payment</th>
+        </tr>
+
+        ${sales.map(s => `
+            <tr>
+                <td>${new Date(s.date).toLocaleDateString()}</td>
+                <td>${escapeHtml(s.productName)}</td>
+                <td>${s.qty}</td>
+                <td class="amount">₱${peso(s.total)}</td>
+                <td>${s.method === "digital" ? "📱 Digital" : "💵 Cash"}</td>
+            </tr>
+        `).join("")}
+
+        </table>
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   CUSTOMERS
+========================================================= */
+
+function addCustomer() {
+
+    const name = document.getElementById("customerName").value.trim();
+    const note = document.getElementById("customerNote").value.trim();
+
+    if (!name) {
+        alert("Please enter a customer name.");
+        return;
+    }
+
+    data.customers.push({
+        id: Date.now(),
+        name,
+        note,
+        created: new Date().toISOString()
+    });
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerNote").value = "";
+
+    saveData();
+
+    alert("Customer added.");
+}
+
+function deleteCustomer(id) {
+
+    if (!confirm("Delete this customer?")) return;
+
+    data.customers =
+        data.customers.filter(c => c.id !== id);
+
+    saveData();
+}
+
+function renderCustomers() {
+
+    const box = document.getElementById("customerList");
+
+    if (!data.customers.length) {
+        box.innerHTML = `<div class="empty">No customers yet.</div>`;
+        return;
+    }
+
+    box.innerHTML = `
+        <div class="table-wrap">
+        <table>
+        <tr>
+            <th>Name</th>
+            <th>Note</th>
+            <th></th>
+        </tr>
+
+        ${data.customers.map(c => `
+            <tr>
+                <td><strong>${escapeHtml(c.name)}</strong></td>
+                <td>${escapeHtml(c.note || "")}</td>
+                <td>
+                    <button class="danger"
+                    onclick="deleteCustomer(${c.id})">
+                    Delete
+                    </button>
+                </td>
+            </tr>
+        `).join("")}
+
+        </table>
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   LOANS
+========================================================= */
+
+function addLoan() {
+
+    const customer = document.getElementById("loanCustomer").value.trim();
+    const original = Number(document.getElementById("loanOriginal").value);
+    const total = Number(document.getElementById("loanTotal").value);
+
+    if (!customer) {
+        alert("Please enter the borrower's name.");
+        return;
+    }
+
+    if (original <= 0 || total <= 0) {
+        alert("Enter valid loan amounts.");
+        return;
+    }
+
+    if (total < original) {
+        alert("Total repayment cannot be less than the original loan.");
+        return;
+    }
+
+    data.loans.push({
+        id: Date.now(),
+        customer,
+        original,
+        total,
+        paid: 0,
+        balance: total,
+        created: new Date().toISOString()
+    });
+
+    document.getElementById("loanCustomer").value = "";
+    document.getElementById("loanOriginal").value = "";
+    document.getElementById("loanTotal").value = "";
+
+    saveData();
+
+    alert("Loan created.");
+}
+
+function renderLoans() {
+
+    const box = document.getElementById("loanList");
+
+    if (!data.loans.length) {
+        box.innerHTML = `<div class="empty">No loans yet.</div>`;
+        return;
+    }
+
+    box.innerHTML = data.loans.map(l => `
+
+        <div class="card" style="border:1px solid #e2e8e5; box-shadow:none;">
+
+            <h3>👤 ${escapeHtml(l.customer)}</h3>
+
+            <p>
+                Original:
+                <strong>₱${peso(l.original)}</strong>
+            </p>
+
+            <p>
+                Total repayment:
+                <strong>₱${peso(l.total)}</strong>
+            </p>
+
+            <p>
+                Paid:
+                <strong>₱${peso(l.paid)}</strong>
+            </p>
+
+            <p class="loan-balance">
+                Remaining:
+                ₱${peso(l.balance)}
+            </p>
+
+            ${l.balance > 0
+                ? `<button onclick="openPaymentForLoan(${l.id})">
+                    💳 Record Payment
+                   </button>`
+                : `<div class="notice success">✅ Loan paid in full</div>`
+            }
+
+        </div>
+
+    `).join("");
+}
+
+function refreshPaymentLoans() {
+
+    const select = document.getElementById("paymentLoan");
+
+    const active = data.loans.filter(l => l.balance > 0);
+
+    if (!active.length) {
+        select.innerHTML =
+            `<option value="">No active loans</option>`;
+        return;
+    }
+
+    select.innerHTML = active.map(l => `
+        <option value="${l.id}">
+            ${escapeHtml(l.customer)} — Balance ₱${peso(l.balance)}
+        </option>
+    `).join("");
+}
+
+function openPaymentForLoan(id) {
+
+    showScreen("payments");
+
+    document.getElementById("paymentLoan").value = id;
+}
+
+function recordLoanPayment() {
+
+    const loanId = Number(document.getElementById("paymentLoan").value);
+    const amount = Number(document.getElementById("loanPaymentAmount").value);
+    const method = document.getElementById("loanPaymentMethod").value;
+
+    const loan = data.loans.find(l => l.id === loanId);
+
+    if (!loan) {
+        alert("Please select a loan.");
+        return;
+    }
+
+    if (amount <= 0) {
+        alert("Enter a valid payment.");
+        return;
+    }
+
+    if (amount > loan.balance) {
+        alert("Payment cannot be greater than the remaining balance.");
+        return;
+    }
+
+    loan.paid += amount;
+    loan.balance = loan.total - loan.paid;
+
+    data.payments.push({
+        id: Date.now(),
+        loanId,
+        customer: loan.customer,
+        amount,
+        method,
+        date: new Date().toISOString()
+    });
+
+    document.getElementById("loanPaymentAmount").value = "";
+
+    saveData();
+
+    alert("Payment recorded.");
+}
+
+function renderPayments() {
+
+    const box = document.getElementById("paymentList");
+
+    if (!data.payments.length) {
+        box.innerHTML = `<div class="empty">No payments yet.</div>`;
+        return;
+    }
+
+    const payments = [...data.payments].reverse();
+
+    box.innerHTML = `
+        <div class="table-wrap">
+        <table>
+        <tr>
+            <th>Date</th>
+            <th>Borrower</th>
+            <th>Amount</th>
+            <th>Method</th>
+        </tr>
+
+        ${payments.map(p => `
+            <tr>
+                <td>${new Date(p.date).toLocaleDateString()}</td>
+                <td>${escapeHtml(p.customer)}</td>
+                <td class="amount">₱${peso(p.amount)}</td>
+                <td>${p.method === "digital" ? "📱 Digital" : "💵 Cash"}</td>
+            </tr>
+        `).join("")}
+
+        </table>
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   DASHBOARD CALCULATIONS
+========================================================= */
+
+function refreshDashboard() {
+
+    const todaySales =
+        data.sales.filter(s =>
+            s.date.slice(0,10) === today()
+        );
+
+    const salesTotal =
+        todaySales.reduce((sum,s) => sum + s.total,0);
+
+    const cashSales =
+        todaySales
+        .filter(s => s.method === "cash")
+        .reduce((sum,s) => sum + s.total,0);
+
+    const digitalSales =
+        todaySales
+        .filter(s => s.method === "digital")
+        .reduce((sum,s) => sum + s.total,0);
+
+    const inventoryValue =
+        data.products.reduce(
+            (sum,p) => sum + (p.qty * p.price),0
+        );
+
+    const loanOutstanding =
+        data.loans.reduce(
+            (sum,l) => sum + l.balance,0
+        );
+
+    const paymentCash =
+        data.payments
+        .filter(p => p.method === "cash")
+        .reduce((sum,p) => sum + p.amount,0);
+
+    const paymentDigital =
+        data.payments
+        .filter(p => p.method === "digital")
+        .reduce((sum,p) => sum + p.amount,0);
+
+    const cashOnHand =
+        Number(data.money.startingCash || 0)
+        + data.sales
+            .filter(s => s.method === "cash")
+            .reduce((sum,s) => sum + s.total,0)
+        + paymentCash;
+
+    const digitalMoney =
+        Number(data.money.startingDigital || 0)
+        + data.sales
+            .filter(s => s.method === "digital")
+            .reduce((sum,s) => sum + s.total,0)
+        + paymentDigital;
+
+    setText("todaySales", peso(salesTotal));
+    setText("todayCash", peso(cashSales));
+    setText("todayDigital", peso(digitalSales));
+    setText("inventoryValue", peso(inventoryValue));
+    setText("loanOutstanding", peso(loanOutstanding));
+    setText("cashOnHand", peso(cashOnHand));
+    setText("digitalMoney", peso(digitalMoney));
+    setText("customerCount", data.customers.length);
+
+    setText("storeProducts", data.products.length);
+    setText("storeSales", peso(salesTotal));
+    setText(
+        "lowStock",
+        data.products.filter(p => p.qty <= p.low).length
+    );
+    setText("storeCustomers", data.customers.length);
+
+    setText("moneyCash", peso(cashOnHand));
+    setText("moneyDigital", peso(digitalMoney));
+    setText("moneyAvailable", peso(cashOnHand + digitalMoney));
+}
+
+
+/* =========================================================
+   MONEY CENTER
+========================================================= */
+
+function saveMoneySettings() {
+
+    data.money.startingCash =
+        Number(document.getElementById("startingCash").value) || 0;
+
+    data.money.startingDigital =
+        Number(document.getElementById("startingDigital").value) || 0;
+
+    saveData();
+
+    alert("Money settings saved.");
+}
+
+function loadMoneySettings() {
+
+    document.getElementById("startingCash").value =
+        data.money.startingCash || 0;
+
+    document.getElementById("startingDigital").value =
+        data.money.startingDigital || 0;
+}
+
+
+/* =========================================================
+   SMART BALANCE
+========================================================= */
+
+function addSmartCredit(amount) {
+
+    data.smart.balance =
+        Number(data.smart.balance || 0) + amount;
+
+    data.smart.usage.push({
+        id: Date.now(),
+        type: "credit",
+        amount,
+        date: new Date().toISOString()
+    });
+
+    saveData();
+
+    alert(`₱${peso(amount)} added to Smart Features Balance.`);
+}
+
+function renderSmartBalance() {
+
+    setText("smartBalance", peso(data.smart.balance));
+    setText("smartBalanceLarge", peso(data.smart.balance));
+
+    const box = document.getElementById("smartUsageList");
+
+    if (!data.smart.usage.length) {
+        box.innerHTML =
+            `<div class="empty">No Smart Features transactions yet.</div>`;
+        return;
+    }
+
+    box.innerHTML =
+        data.smart.usage.slice().reverse().map(u => `
+            <div class="notice">
+                ${u.type === "credit" ? "➕ Credit" : "➖ Usage"}
+                — ₱${peso(u.amount)}
+                <br>
+                <span class="small">
+                    ${new Date(u.date).toLocaleString()}
+                </span>
+            </div>
+        `).join("");
+}
+
+
+/* =========================================================
+   NOTEBOOK CAMERA / PHOTO
+========================================================= */
+
+function previewNotebook(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const preview =
+        document.getElementById("notebookPreview");
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        preview.src = e.target.result;
+        preview.classList.remove("hidden");
+
+        document
+            .getElementById("notebookReview")
+            .classList.remove("hidden");
+
+        /*
+          TEST REVIEW DATA.
+          Later this section will be filled by actual OCR/AI.
+        */
+
+        document.getElementById("notebookCustomer").value =
+            "Review Customer Name";
+
+        document.getElementById("notebookOriginal").value = "";
+        document.getElementById("notebookTotal").value = "";
+        document.getElementById("notebookPaid").value = "";
+        document.getElementById("notebookBalance").value = "";
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function saveNotebookRecord() {
+
+    const customer =
+        document.getElementById("notebookCustomer").value.trim();
+
+    const original =
+        Number(document.getElementById("notebookOriginal").value);
+
+    const total =
+        Number(document.getElementById("notebookTotal").value);
+
+    const paid =
+        Number(document.getElementById("notebookPaid").value);
+
+    if (!customer || total <= 0) {
+        alert("Please review and enter the required information.");
+        return;
+    }
+
+    data.loans.push({
+        id: Date.now(),
+        customer,
+        original,
+        total,
+        paid,
+        balance: Math.max(0,total-paid),
+        created: new Date().toISOString(),
+        source: "notebook"
+    });
+
+    saveData();
+
+    alert("Notebook record saved.");
+
+    document.getElementById("notebookReview")
+        .classList.add("hidden");
+}
+
+
+/* =========================================================
+   INVENTORY PHOTO
+========================================================= */
+
+function previewInventory(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const preview =
+        document.getElementById("inventoryPreview");
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        preview.src = e.target.result;
+        preview.classList.remove("hidden");
+
+        document
+            .getElementById("inventoryReview")
+            .classList.remove("hidden");
+
+        /*
+          TEST MODE.
+          Actual AI product recognition will populate
+          these fields later.
+        */
+
+        document.getElementById("scanProductName").value = "";
+        document.getElementById("scanProductQty").value = "";
+        document.getElementById("scanProductPrice").value = "";
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function saveScannedProduct() {
+
+    const name =
+        document.getElementById("scanProductName").value.trim();
+
+    const qty =
+        Number(document.getElementById("scanProductQty").value);
+
+    const price =
+        Number(document.getElementById("scanProductPrice").value);
+
+    if (!name) {
+        alert("Please review the product name.");
+        return;
+    }
+
+    data.products.push({
+        id: Date.now(),
+        name,
+        qty,
+        price,
+        low: 5,
+        created: new Date().toISOString(),
+        source: "inventory-scan"
+    });
+
+    saveData();
+
+    alert("Scanned product saved.");
+
+    document.getElementById("inventoryReview")
+        .classList.add("hidden");
+}
+
+
+/* =========================================================
+   VOICE
+========================================================= */
+
+let recognition = null;
+
+function startVoice() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+
+        alert(
+            "Voice recognition is not supported by this browser. " +
+            "You can still type into the box."
+        );
+
+        return;
+    }
+
+    recognition = new SpeechRecognition();
+
+    recognition.lang = "en-PH";
+    recognition.interimResults = false;
+    recognition.continuous = false;
+
+    document.getElementById("voiceStatus").innerText =
+        "🎤 Listening...";
+
+    recognition.onresult = function(event) {
+
+        const text =
+            event.results[0][0].transcript;
+
+        document.getElementById("voiceText").value = text;
+
+        document.getElementById("voiceStatus").innerText =
+            "✅ I heard you. Please review it.";
+
+        processVoiceText();
+    };
+
+    recognition.onerror = function(event) {
+
+        document.getElementById("voiceStatus").innerText =
+            "Voice error: " + event.error;
+    };
+
+    recognition.onend = function() {
+
+        if (
+            document.getElementById("voiceStatus").innerText ===
+            "🎤 Listening..."
+        ) {
+            document.getElementById("voiceStatus").innerText =
+                "Ready.";
+        }
+    };
+
+    recognition.start();
+}
+
+function processVoiceText() {
+
+    const text =
+        document.getElementById("voiceText").value.trim();
+
+    if (!text) {
+        alert("Please speak or type something first.");
+        return;
+    }
+
+    /*
+      Simple browser-side extraction.
+      This is deliberately conservative.
+      Actual AI parsing will replace this later.
+    */
+
+    let quantity = extractNumberBefore(
+        text,
+        ["bottle","bottles","piece","pieces","pcs","items","item"]
+    );
+
+    let price = extractPrice(text);
+
+    let productName = extractProductName(text);
+
+    document.getElementById("voiceProductName").value =
+        productName || "";
+
+    document.getElementById("voiceProductQty").value =
+        quantity || "";
+
+    document.getElementById("voiceProductPrice").value =
+        price || "";
+
+    document
+        .getElementById("voiceReview")
+        .classList.remove("hidden");
+}
+
+function extractNumberBefore(text, words) {
+
+    const lower = text.toLowerCase();
+
+    for (const word of words) {
+
+        const regex =
+            new RegExp("(\\d+(?:\\.\\d+)?)\\s*" + word);
+
+        const match = lower.match(regex);
+
+        if (match) {
+            return Number(match[1]);
+        }
+    }
+
+    const first =
+        lower.match(/\b\d+\b/);
+
+    return first ? Number(first[0]) : 0;
+}
+
+function extractPrice(text) {
+
+    const patterns = [
+        /(?:for|at|sell(?:ing)?(?:\s+them)?\s+for)\s*(?:₱|p|pesos?)?\s*(\d+(?:\.\d+)?)/i,
+        /₱\s*(\d+(?:\.\d+)?)/i,
+        /(\d+(?:\.\d+)?)\s*pesos?/i
+    ];
+
+    for (const regex of patterns) {
+
+        const match = text.match(regex);
+
+        if (match) {
+            return Number(match[1]);
+        }
+    }
+
+    return 0;
+}
+
+function extractProductName(text) {
+
+    const lower = text.toLowerCase();
+
+    let match =
+        text.match(
+            /(?:received|got|bought|have)\s+\d+\s+(.+?)(?:\s+and|\s+for\s+₱|\s+for\s+p|\s+for\s+\d|$)/i
+        );
+
+    if (match) {
+        return cleanProductName(match[1]);
+    }
+
+    return "";
+}
+
+function cleanProductName(value) {
+
+    return value
+        .replace(/\b(each|today|here|now)\b/gi,"")
+        .trim()
+        .replace(/\s+/g," ");
+}
+
+function saveVoiceProduct() {
+
+    const name =
+        document.getElementById("voiceProductName").value.trim();
+
+    const qty =
+        Number(document.getElementById("voiceProductQty").value);
+
+    const price =
+        Number(document.getElementById("voiceProductPrice").value);
+
+    if (!name || qty <= 0 || price < 0) {
+        alert("Please review the information before saving.");
+        return;
+    }
+
+    data.products.push({
+        id: Date.now(),
+        name,
+        qty,
+        price,
+        low: 5,
+        created: new Date().toISOString(),
+        source: "voice"
+    });
+
+    saveData();
+
+    alert("Voice entry saved to inventory.");
+
+    document
+        .getElementById("voiceReview")
+        .classList.add("hidden");
+}
+
+
+/* =========================================================
+   REAL CAMERA
+========================================================= */
+
+let cameraStream = null;
+
+async function startCamera() {
+
+    try {
+
+        cameraStream =
+            await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: {
+                        ideal: "environment"
+                    }
+                },
+                audio: false
+            });
+
+        const video =
+            document.getElementById("cameraVideo");
+
+        video.srcObject = cameraStream;
+
+    } catch(error) {
+
+        alert(
+            "Camera could not be opened. " +
+            "Please make sure the browser has camera permission."
+        );
+    }
+}
+
+function takePhoto() {
+
+    const video =
+        document.getElementById("cameraVideo");
+
+    if (!video.srcObject) {
+
+        alert("Please open the camera first.");
+        return;
+    }
+
+    const canvas =
+        document.getElementById("cameraCanvas");
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const context =
+        canvas.getContext("2d");
+
+    context.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    const photo =
+        document.getElementById("cameraPhoto");
+
+    photo.src =
+        canvas.toDataURL("image/jpeg");
+
+    photo.classList.remove("hidden");
+}
+
+function stopCamera() {
+
+    if (cameraStream) {
+
+        cameraStream.getTracks().forEach(
+            track => track.stop()
+        );
+
+        cameraStream = null;
+    }
+
+    const video =
+        document.getElementById("cameraVideo");
+
+    video.srcObject = null;
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function setText(id,value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+        element.innerText = value;
+    }
+}
+
+function escapeHtml(value) {
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================================
+   REFRESH EVERYTHING
+========================================================= */
+
+function refreshAll() {
+
+    refreshDashboard();
+
+    renderInventory();
+    refreshSaleProducts();
+    renderSales();
+
+    renderCustomers();
+
+    renderLoans();
+    refreshPaymentLoans();
+    renderPayments();
+
+    loadMoneySettings();
+
+    renderSmartBalance();
+}
+
+
+/* =========================================================
+   START APP
+========================================================= */
+
+refreshAll();
+
+</script>
+
+</body>
+</html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
