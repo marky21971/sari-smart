@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sari-Smart</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7f9;
+      color: #222;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      color: #666;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .welcome {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .welcome h2 {
+      margin-top: 0;
+    }
+
+    .balance {
+      display: inline-block;
+      background: #f0f4ff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      border: none;
+      border-radius: 14px;
+      padding: 22px 15px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 16px;
+      transition: transform 0.15s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .icon {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .smart {
+      margin-top: 25px;
+    }
+
+    .smart h2 {
+      margin-bottom: 12px;
+    }
+
+    .smart-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .smart-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 17px;
+    }
+
+    .smart-card span {
+      color: #666;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #888;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🌱 Sari-Smart</h1>
+    <p>Your simple smart business assistant</p>
+  </header>
+
+  <main class="container">
+
+    <section class="welcome">
+      <h2>Welcome to Sari-Smart</h2>
+      <p>Let's make running your business easier.</p>
+
+      <div class="balance">
+        🤖 Smart Features Balance: ₱50.00
+      </div>
+    </section>
+
+    <section class="grid">
+
+      <button class="card">
+        <span class="icon">🏪</span>
+        My Store
+      </button>
+
+      <button class="card">
+        <span class="icon">📦</span>
+        Inventory
+      </button>
+
+      <button class="card">
+        <span class="icon">🧾</span>
+        Sales
+      </button>
+
+      <button class="card">
+        <span class="icon">👥</span>
+        Customers
+      </button>
+
+      <button class="card">
+        <span class="icon">💰</span>
+        5/6 Loans
+      </button>
+
+      <button class="card">
+        <span class="icon">📅</span>
+        Payments
+      </button>
+
+    </section>
+
+    <section class="smart">
+
+      <h2>🤖 Smart Features</h2>
+
+      <div class="smart-card">
+        <strong>📖 Read My Notebook</strong>
+        <span>Turn handwritten records into digital records.</span>
+      </div>
+
+      <div class="smart-card">
+        <strong>📷 Scan My Inventory</strong>
+        <span>Take a picture and let Sari-Smart help enter your products.</span>
+      </div>
+
+      <div class="smart-card">
+        <strong>🎤 Tell My Store</strong>
+        <span>Speak your inventory, sales, or other information.</span>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    Sari-Smart — Making business simpler, one step at a time.
+  </footer>
+
+</body>
+</html>
