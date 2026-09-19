@@ -1,7 +1,1076 @@
 
 <!DOCTYPE html>
 <html lang="en"><!DOCTYPE html>
+<html lang="en"><!DOCTYPE html>
 <html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sari-Smart</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f8fa;
+    color: #222;
+}
+
+header {
+    background: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+header p {
+    margin: 6px 0 0;
+    color: #666;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.balance {
+    background: #fff;
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.balance strong {
+    font-size: 24px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+button {
+    border: none;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #222;
+    color: white;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+.card {
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    margin-bottom: 15px;
+}
+
+.smart-card {
+    cursor: pointer;
+    transition: transform .15s;
+}
+
+.smart-card:hover {
+    transform: translateY(-2px);
+}
+
+.smart-card h3 {
+    margin-top: 0;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 7px 0 12px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    font-size: 16px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+.back {
+    background: #666;
+    margin-bottom: 15px;
+}
+
+.success {
+    background: #eef8ee;
+    border: 1px solid #b8dcb8;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.warning {
+    background: #fff8e6;
+    border: 1px solid #eed38a;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.small-button {
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+.stat {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.empty {
+    color: #777;
+    text-align: center;
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    color: #777;
+    padding: 30px 10px;
+}
+
+@media (max-width: 500px) {
+    .container {
+        padding: 12px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🛍️ Sari-Smart</h1>
+    <p>Your small business, made simpler.</p>
+</header>
+
+<div class="container">
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="screen active">
+
+    <div class="balance">
+        <div>Smart Features Balance</div>
+        <strong>₱<span id="smartBalance">50.00</span></strong>
+        <p>AI features will use this balance when connected.</p>
+    </div>
+
+    <div class="card">
+        <h2>My Business</h2>
+
+        <div class="dashboard-grid">
+            <button onclick="showScreen('store')">🏪 My Store</button>
+            <button onclick="showScreen('inventory')">📦 Inventory</button>
+            <button onclick="showScreen('sales')">🧾 Sales</button>
+            <button onclick="showScreen('customers')">👥 Customers</button>
+            <button onclick="showScreen('loans')">💰 5/6 Loans</button>
+            <button onclick="showScreen('payments')">💵 Payments</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>✨ Smart Features</h2>
+
+        <div class="dashboard-grid">
+            <button class="smart-card" onclick="showScreen('notebook')">
+                📖 Read My Notebook
+            </button>
+
+            <button class="smart-card" onclick="showScreen('inventoryScan')">
+                📷 Scan My Inventory
+            </button>
+
+            <button class="smart-card" onclick="showScreen('voice')">
+                🎤 Tell My Store
+            </button>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- MY STORE -->
+<section id="store" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">← Back</button>
+
+    <div class="card">
+        <h2>🏪 My Store</h2>
+        <p>Welcome to your Sari-Smart business dashboard.</p>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <div>Products</div>
+                <div class="stat" id="storeProducts">0</div>
+            </div>
+
+            <div class="card">
+                <div>Customers</div>
+                <div class="stat" id="storeCustomers">0</div>
+            </div>
+
+            <div class="card">
+                <div>Outstanding Loans</div>
+                <div class="stat">₱<span id="storeLoans">0.00</span></div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- INVENTORY -->
+<section id="inventory" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">← Back</button>
+
+    <div class="card">
+        <h2>📦 Inventory</h2>
+
+        <label>Product Name</label>
+        <input id="productName" placeholder="Example: Coke">
+
+        <label>Quantity</label>
+        <input id="productQty" type="number" min="0" placeholder="Example: 24">
+
+        <label>Selling Price</label>
+        <input id="productPrice" type="number" min="0" step="0.01" placeholder="Example: 25">
+
+        <button onclick="addProduct()">Add Product</button>
+    </div>
+
+    <div class="card">
+        <h3>My Products</h3>
+        <div id="inventoryList"></div>
+    </div>
+
+</section>
+
+
+<!-- SALES -->
+<section id="sales" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">← Back</button>
+
+    <div class="card">
+        <h2>🧾 Record Sale</h2>
+
+        <label>Product</label>
+        <select id="saleProduct"></select>
+
+        <label>Quantity Sold</label>
+        <input id="saleQty" type="number" min="1" value="1">
+
+        <button onclick="recordSale()">Record Sale</button>
+
+        <div id="saleMessage"></div>
+    </div>
+
+    <div class="card">
+        <h3>Sales History</h3>
+        <div id="salesList"></div>
+    </div>
+
+</section>
+
+
+<!-- CUSTOMERS -->
+<section id="customers" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">← Back</button>
+
+    <div class="card">
+        <h2>👥 Customers</h2>
+
+        <label>Customer Name</label>
+        <input id="customerName" placeholder="Example: Maria">
+
+        <label>Phone Number (optional)</label>
+        <input id="customerPhone" placeholder="09xxxxxxxxx">
+
+        <button onclick="addCustomer()">Add Customer</button>
+    </div>
+
+    <div class="card">
+        <h3>Customer List</h3>
+        <div id="customerList"></div>
+    </div>
+
+</section>
+
+
+<!-- 5/6 LOANS -->
+<section id="loans" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">← Back</button>
+
+    <div class="card">
+        <h2>💰 5/6 Loans</h2>
+
+        <label>Customer</label>
+        <select id="loanCustomer"></select>
+
+        <label>Original Loan</label>
+        <input id="loanAmount" type="number" min="0" step="0.01">
+
+        <label>Total Repayment</label>
+        <input id="loanTotal" type="number" min="0" step="0.01">
+
+        <button onclick="createLoan()">Create Loan</button>
+    </div>
+
+    <div class="card">
+        <h3>Loan Records</h3>
+        <div id="loanList"></div>
+    </div>
+
+</section>
+
+
+<!-- PAYMENTS -->
+<section id="payments" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">← Back</button>
+
+    <div class="card">
+        <h2>💵 Payments</h2>
+        <div id="paymentsList"></div>
+    </div>
+
+</section>
+
+
+<!-- READ NOTEBOOK -->
+<section id="notebook" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">← Back</button>
+
+    <div class="card">
+        <h2>📖 Read My Notebook</h2>
+
+        <p>Take a photo or upload a picture of your notebook page.</p>
+
+        <input type="file" id="notebookFile" accept="image/*">
+
+        <button onclick="previewNotebook()">Read This Page</button>
+
+        <div id="notebookResult"></div>
+    </div>
+
+</section>
+
+
+<!-- INVENTORY SCAN -->
+<section id="inventoryScan" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">← Back</button>
+
+    <div class="card">
+        <h2>📷 Scan My Inventory</h2>
+
+        <p>Upload a photo of your shelves, products, boxes, or handwritten inventory.</p>
+
+        <input type="file" id="inventoryFile" accept="image/*" multiple>
+
+        <button onclick="previewInventoryScan()">Scan Inventory</button>
+
+        <div id="inventoryScanResult"></div>
+    </div>
+
+</section>
+
+
+<!-- VOICE -->
+<section id="voice" class="screen">
+
+    <button class="back" onclick="showScreen('dashboard')">← Back</button>
+
+    <div class="card">
+        <h2>🎤 Tell My Store</h2>
+
+        <p>Instead of typing, tell Sari-Smart what happened.</p>
+
+        <textarea id="voiceText" rows="5"
+        placeholder="Example: I received 24 Coke bottles today and I sell them for 25 pesos each."></textarea>
+
+        <button onclick="startVoice()">🎤 Speak</button>
+
+        <button onclick="processVoice()">Understand This</button>
+
+        <div id="voiceResult"></div>
+    </div>
+
+</section>
+
+<footer>
+    Sari-Smart • Built to make small business simpler.
+</footer>
+
+</div>
+
+
+<script>
+
+let data = JSON.parse(localStorage.getItem("sariSmartData")) || {
+    products: [],
+    sales: [],
+    customers: [],
+    loans: [],
+    payments: []
+};
+
+function saveData() {
+    localStorage.setItem("sariSmartData", JSON.stringify(data));
+    refreshAll();
+}
+
+function money(value) {
+    return Number(value || 0).toFixed(2);
+}
+
+function showScreen(screenId) {
+
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    document.getElementById(screenId).classList.add("active");
+
+    refreshAll();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function addProduct() {
+
+    const name = document.getElementById("productName").value.trim();
+    const qty = Number(document.getElementById("productQty").value);
+    const price = Number(document.getElementById("productPrice").value);
+
+    if (!name || qty < 0 || price < 0) {
+        alert("Please enter the product name, quantity, and price.");
+        return;
+    }
+
+    data.products.push({
+        id: Date.now(),
+        name,
+        qty,
+        price
+    });
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productQty").value = "";
+    document.getElementById("productPrice").value = "";
+
+    saveData();
+
+    alert("Product added!");
+}
+
+function deleteProduct(id) {
+
+    if (!confirm("Remove this product from inventory?")) return;
+
+    data.products = data.products.filter(p => p.id !== id);
+
+    saveData();
+}
+
+function updateProductQty(id, change) {
+
+    const product = data.products.find(p => p.id === id);
+
+    if (!product) return;
+
+    product.qty = Math.max(0, product.qty + change);
+
+    saveData();
+}
+
+function renderInventory() {
+
+    const list = document.getElementById("inventoryList");
+
+    if (!data.products.length) {
+        list.innerHTML = '<div class="empty">No products yet. Add your first product above.</div>';
+        return;
+    }
+
+    list.innerHTML = data.products.map(product => `
+        <div class="item">
+            <div>
+                <strong>${escapeHTML(product.name)}</strong><br>
+                Quantity: ${product.qty}<br>
+                Selling Price: ₱${money(product.price)}
+            </div>
+
+            <div>
+                <button class="small-button"
+                    onclick="updateProductQty(${product.id}, 1)">+</button>
+
+                <button class="small-button"
+                    onclick="updateProductQty(${product.id}, -1)">−</button>
+
+                <button class="small-button"
+                    onclick="deleteProduct(${product.id})">Delete</button>
+            </div>
+        </div>
+    `).join("");
+}
+
+function refreshSaleProducts() {
+
+    const select = document.getElementById("saleProduct");
+
+    if (!data.products.length) {
+        select.innerHTML = '<option value="">No products available</option>';
+        return;
+    }
+
+    select.innerHTML = data.products.map(product => `
+        <option value="${product.id}">
+            ${escapeHTML(product.name)} — ${product.qty} available — ₱${money(product.price)}
+        </option>
+    `).join("");
+}
+
+function recordSale() {
+
+    const productId = Number(document.getElementById("saleProduct").value);
+    const qty = Number(document.getElementById("saleQty").value);
+
+    const product = data.products.find(p => p.id === productId);
+
+    if (!product) {
+        alert("Please add a product first.");
+        return;
+    }
+
+    if (qty <= 0) {
+        alert("Enter a valid quantity.");
+        return;
+    }
+
+    if (qty > product.qty) {
+        alert("Not enough stock available.");
+        return;
+    }
+
+    product.qty -= qty;
+
+    const total = qty * product.price;
+
+    data.sales.unshift({
+        id: Date.now(),
+        product: product.name,
+        qty,
+        total,
+        date: new Date().toLocaleString()
+    });
+
+    saveData();
+
+    document.getElementById("saleMessage").innerHTML = `
+        <div class="success">
+            Sale recorded: ${qty} × ${escapeHTML(product.name)}
+            = <strong>₱${money(total)}</strong>
+        </div>
+    `;
+
+    document.getElementById("saleQty").value = 1;
+}
+
+function renderSales() {
+
+    const list = document.getElementById("salesList");
+
+    if (!data.sales.length) {
+        list.innerHTML = '<div class="empty">No sales recorded yet.</div>';
+        return;
+    }
+
+    list.innerHTML = data.sales.map(sale => `
+        <div class="item">
+            <div>
+                <strong>${escapeHTML(sale.product)}</strong><br>
+                ${sale.qty} sold<br>
+                ${sale.date}
+            </div>
+
+            <strong>₱${money(sale.total)}</strong>
+        </div>
+    `).join("");
+}
+
+function addCustomer() {
+
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+
+    if (!name) {
+        alert("Please enter the customer's name.");
+        return;
+    }
+
+    data.customers.push({
+        id: Date.now(),
+        name,
+        phone
+    });
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerPhone").value = "";
+
+    saveData();
+
+    alert("Customer added!");
+}
+
+function deleteCustomer(id) {
+
+    if (!confirm("Remove this customer?")) return;
+
+    data.customers = data.customers.filter(c => c.id !== id);
+
+    saveData();
+}
+
+function renderCustomers() {
+
+    const list = document.getElementById("customerList");
+
+    if (!data.customers.length) {
+        list.innerHTML = '<div class="empty">No customers yet.</div>';
+        return;
+    }
+
+    list.innerHTML = data.customers.map(customer => `
+        <div class="item">
+            <div>
+                <strong>${escapeHTML(customer.name)}</strong><br>
+                ${customer.phone ? escapeHTML(customer.phone) : "No phone number"}
+            </div>
+
+            <button class="small-button"
+                onclick="deleteCustomer(${customer.id})">Delete</button>
+        </div>
+    `).join("");
+}
+
+function refreshLoanCustomers() {
+
+    const select = document.getElementById("loanCustomer");
+
+    if (!data.customers.length) {
+        select.innerHTML = '<option value="">Add a customer first</option>';
+        return;
+    }
+
+    select.innerHTML = data.customers.map(customer => `
+        <option value="${customer.id}">
+            ${escapeHTML(customer.name)}
+        </option>
+    `).join("");
+}
+
+function createLoan() {
+
+    const customerId = Number(document.getElementById("loanCustomer").value);
+    const amount = Number(document.getElementById("loanAmount").value);
+    const total = Number(document.getElementById("loanTotal").value);
+
+    const customer = data.customers.find(c => c.id === customerId);
+
+    if (!customer) {
+        alert("Please add a customer first.");
+        return;
+    }
+
+    if (amount <= 0 || total <= 0) {
+        alert("Please enter the loan amount and total repayment.");
+        return;
+    }
+
+    if (total < amount) {
+        alert("Total repayment cannot be less than the original loan.");
+        return;
+    }
+
+    data.loans.push({
+        id: Date.now(),
+        customerId,
+        customerName: customer.name,
+        original: amount,
+        total,
+        paid: 0,
+        balance: total,
+        date: new Date().toLocaleString()
+    });
+
+    document.getElementById("loanAmount").value = "";
+    document.getElementById("loanTotal").value = "";
+
+    saveData();
+
+    alert("Loan created!");
+}
+
+function makePayment(loanId) {
+
+    const loan = data.loans.find(l => l.id === loanId);
+
+    if (!loan || loan.balance <= 0) return;
+
+    const amount = Number(
+        prompt(
+            `Enter payment for ${loan.customerName}.\nRemaining balance: ₱${money(loan.balance)}`
+        )
+    );
+
+    if (!amount || amount <= 0) return;
+
+    if (amount > loan.balance) {
+        alert("Payment cannot be greater than the remaining balance.");
+        return;
+    }
+
+    loan.paid += amount;
+    loan.balance -= amount;
+
+    data.payments.unshift({
+        id: Date.now(),
+        loanId,
+        customerName: loan.customerName,
+        amount,
+        date: new Date().toLocaleString()
+    });
+
+    saveData();
+}
+
+function renderLoans() {
+
+    const list = document.getElementById("loanList");
+
+    if (!data.loans.length) {
+        list.innerHTML = '<div class="empty">No loans recorded yet.</div>';
+        return;
+    }
+
+    list.innerHTML = data.loans.map(loan => `
+        <div class="card">
+
+            <strong>${escapeHTML(loan.customerName)}</strong>
+
+            <p>
+                Original Loan: ₱${money(loan.original)}<br>
+                Total Repayment: ₱${money(loan.total)}<br>
+                Amount Paid: ₱${money(loan.paid)}<br>
+                <strong>Balance: ₱${money(loan.balance)}</strong>
+            </p>
+
+            ${
+                loan.balance > 0
+                ? `<button onclick="makePayment(${loan.id})">Record Payment</button>`
+                : `<div class="success">✓ Loan fully paid</div>`
+            }
+
+        </div>
+    `).join("");
+}
+
+function renderPayments() {
+
+    const list = document.getElementById("paymentsList");
+
+    if (!data.payments.length) {
+        list.innerHTML = '<div class="empty">No payments recorded yet.</div>';
+        return;
+    }
+
+    list.innerHTML = data.payments.map(payment => `
+        <div class="item">
+            <div>
+                <strong>${escapeHTML(payment.customerName)}</strong><br>
+                ${payment.date}
+            </div>
+
+            <strong>₱${money(payment.amount)}</strong>
+        </div>
+    `).join("");
+}
+
+function refreshStoreStats() {
+
+    document.getElementById("storeProducts").textContent =
+        data.products.length;
+
+    document.getElementById("storeCustomers").textContent =
+        data.customers.length;
+
+    const outstanding = data.loans.reduce(
+        (sum, loan) => sum + Number(loan.balance),
+        0
+    );
+
+    document.getElementById("storeLoans").textContent =
+        money(outstanding);
+}
+
+
+/* NOTEBOOK */
+
+function previewNotebook() {
+
+    const file = document.getElementById("notebookFile").files[0];
+    const result = document.getElementById("notebookResult");
+
+    if (!file) {
+        alert("Please choose a notebook photo first.");
+        return;
+    }
+
+    result.innerHTML = `
+        <div class="success">
+
+            <h3>📖 Page Ready for Review</h3>
+
+            <p>
+                Your notebook photo has been uploaded.
+                The real AI reading system will extract the information here.
+            </p>
+
+            <div class="warning">
+                <strong>Test Mode</strong><br>
+                AI is not connected yet. No financial information has been
+                automatically saved.
+            </div>
+
+            <h4>Example Review</h4>
+
+            <label>Customer Name</label>
+            <input value="Maria">
+
+            <label>Original Loan</label>
+            <input value="1000">
+
+            <label>Total Repayment</label>
+            <input value="1200">
+
+            <label>Amount Paid</label>
+            <input value="400">
+
+            <p><strong>Balance: ₱800</strong></p>
+
+            <button onclick="alert('Review confirmed. AI connection will be added next.')">
+                Confirm & Save
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* INVENTORY SCAN */
+
+function previewInventoryScan() {
+
+    const files = document.getElementById("inventoryFile").files;
+    const result = document.getElementById("inventoryScanResult");
+
+    if (!files.length) {
+        alert("Please choose at least one inventory photo.");
+        return;
+    }
+
+    result.innerHTML = `
+        <div class="success">
+
+            <h3>📷 Inventory Ready for Review</h3>
+
+            <p>
+                ${files.length} photo(s) uploaded.
+            </p>
+
+            <div class="warning">
+                <strong>Test Mode</strong><br>
+                The AI inventory reader is not connected yet.
+            </div>
+
+            <h4>Example Results</h4>
+
+            <p>🥤 Coke — 24 — ₱25</p>
+            <p>🥤 Pepsi — 18 — ₱25</p>
+            <p>🍜 Lucky Me — 30 — ₱15</p>
+            <p>🥫 Sardines — 12 — ₱28</p>
+
+            <button onclick="alert('Inventory review confirmed. AI connection will be added next.')">
+                Confirm & Save
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* VOICE */
+
+function startVoice() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+
+        alert(
+            "Voice recognition is not supported by this browser. " +
+            "You can still type your information below."
+        );
+
+        return;
+    }
+
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = "en-PH";
+    recognition.interimResults = false;
+
+    recognition.onresult = function(event) {
+
+        const text =
+            event.results[0][0].transcript;
+
+        document.getElementById("voiceText").value = text;
+    };
+
+    recognition.onerror = function() {
+
+        alert("I couldn't hear that. Please try again.");
+    };
+
+    recognition.start();
+}
+
+function processVoice() {
+
+    const text =
+        document.getElementById("voiceText").value.trim();
+
+    if (!text) {
+        alert("Please type something or use the microphone first.");
+        return;
+    }
+
+    document.getElementById("voiceResult").innerHTML = `
+        <div class="success">
+
+            <h3>🎤 I Heard You</h3>
+
+            <p>${escapeHTML(text)}</p>
+
+            <div class="warning">
+                <strong>Test Mode</strong><br>
+                The real AI will eventually turn this into structured
+                inventory, sales, customer, or loan information.
+            </div>
+
+            <button onclick="alert('Information confirmed. AI processing will be connected next.')">
+                Confirm & Save
+            </button>
+
+        </div>
+    `;
+}
+
+
+function escapeHTML(text) {
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function refreshAll() {
+
+    renderInventory();
+    refreshSaleProducts();
+    renderSales();
+
+    renderCustomers();
+    refreshLoanCustomers();
+
+    renderLoans();
+    renderPayments();
+
+    refreshStoreStats();
+}
+
+
+refreshAll();
+
+</script>
+
+</body>
+</html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
