@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1f6f5b">
+  <link rel="manifest" href="manifest.json">  
 <title>Sari-Smart</title>
-
 <style>
 * {
     box-sizing: border-box;
@@ -3911,6 +3911,34 @@ refreshAll();
   <footer>
     Sari-Smart — Making business simpler, one step at a time.
   </footer>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js")
+        .then(() => console.log("Sari-Smart service worker registered"))
+        .catch(error => console.error("Service worker registration failed:", error));
+    });
+  }
+</script>
+    <footer>
+   ...
+</footer>
 
+<script>
+   ...your existing Sari-Smart code...
+</script>
+
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js")
+        .then(() => console.log("Sari-Smart service worker registered"))
+        .catch(error => console.error("Service worker registration failed:", error));
+    });
+  }
+</script>
+
+</body>
+</html>
 </body>
 </html>
